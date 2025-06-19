@@ -1,0 +1,52 @@
+[project]
+name = "preacher"
+version = "0.1.0"
+description = "Preacher is an AI-powered spiritual guide offering wisdom, reflection, and comfort across faiths and philosophies."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "art>=6.5",
+    "click>=8.2.1",
+    "google-adk>=1.4.1",
+    "litellm>=1.72.6.post1",
+    "pydantic-settings>=2.9.1",
+    "python-dotenv>=1.1.0",
+]
+
+[tool.ruff]
+# Set the maximum line length to 90.
+line-length = 90
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = 20
+indent-style = "space"
+line-ending = "auto"
+skip-magic-trailing-comma = false
+quote-style = "double"
+
+[tool.ruff.lint]
+# Add the `line-too-long` rule to the enforced rule set. By default, Ruff omits rules that
+# overlap with the use of a formatter, like Black, but we can override this behavior by
+# explicitly adding the rule.
+extend-select = ["E501"]
+
+fixable = ["ALL"]
+
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+]
+
+[dependency-groups]
+dev = ["pre-commit>=4.2.0", "ruff>=0.12.0"]
