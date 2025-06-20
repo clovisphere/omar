@@ -10,6 +10,7 @@ from telegram.ext import (
     filters,
 )
 
+from app.assistant.helper import call_agent_async
 from app.config import settings
 
 # Initialize the Telegram 🤖 application with configured settings
@@ -38,7 +39,19 @@ async def ask(update: Update, _: ContextTypes.DEFAULT_TYPE) -> Message | None:
     """
     Handler for user questions or spiritual inquiries.
     """
-    raise NotImplementedError  # This is where Omar would listen and respond
+    chat_id = update.effective_chat.id  # type: ignore
+    message = str(update.message.text) if update.message else ""
+
+    # Use stable IDs based on chat_id to maintain conversation continuity
+    user_id = f"user_{chat_id}"
+    session_id = f"session_{chat_id}"
+
+    # fmt: off
+    if (reply:= update.message.reply_text if update.message else None) and message:
+    # fmt: on
+        # 📡 Send the user question to Omar and await a sacred reply
+        response = await call_agent_async(message, user_id, session_id)
+        await reply(response)
 
 
 async def help(update: Update, _: ContextTypes.DEFAULT_TYPE) -> Message | None:

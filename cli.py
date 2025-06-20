@@ -4,41 +4,17 @@ import warnings
 
 import click
 from art import tprint  # type: ignore
-from google.adk.runners import Runner
-from google.adk.sessions import InMemorySessionService
-from google.genai import types
 
-from app.assistant.agent import root_agent
+from app.assistant.helper import call_agent_async
 from app.config import settings
 
 # Ignore all warnings
 warnings.filterwarnings("ignore")
 
-# Create an in-memory session service to manage user sessions temporarily
-session_service = InMemorySessionService()
 # Generate a unique identifier for the user (simulating a new visitor every time)
 user_id = f"user_{uuid.uuid4()}"
 # Generate a unique identifier for this particular session (a unique chat instance)
 session_id = f"session_{uuid.uuid4()}"
-
-
-async def call_agent_async(
-    query: str, user_id: str, session_id: str, runner: Runner
-) -> str | None:
-    """Sends a query to Omar and retrieves the final response."""
-    content = types.Content(role="user", parts=[types.Part(text=query)])
-    async for event in runner.run_async(
-        user_id=user_id, session_id=session_id, new_message=content
-    ):
-        if (
-            event.is_final_response()
-            and event.content
-            and event.content.parts
-            and event.content.parts[0].text
-        ):
-            return event.content.parts[0].text
-
-    return "🙏 Sorry, I couldn't find a response to that right now."
 
 
 @click.command()
@@ -52,14 +28,11 @@ def console() -> None:
         chat(
             user_id=user_id,
             session_id=session_id,
-            session_service=session_service,
         )
     )
 
 
-async def chat(
-    user_id: str, session_id: str, session_service: InMemorySessionService
-) -> None:
+async def chat(user_id: str, session_id: str) -> None:
     """Handles the chat interaction loop with the user."""
     click.secho(
         "\nPeace be upon you. I'm Omar, your spiritual companion. "
@@ -67,20 +40,6 @@ async def chat(
         fg="blue",
     )
     click.secho("Type 'quit' or 'q' to exit the chat.\n", fg="magenta")
-
-    # 🛖 Create a new session space for this chat instance
-    await session_service.create_session(
-        app_name=settings.PROJECT_NAME,
-        user_id=user_id,
-        session_id=session_id,
-    )
-
-    # 🧠 Initialize the Runner — this will orchestrate message exchange with Preacher
-    runner = Runner(
-        agent=root_agent,
-        app_name=settings.PROJECT_NAME,
-        session_service=session_service,
-    )
 
     # 🔁 Begin the chat loop — our little chapel of conversation
     while True:
@@ -96,8 +55,8 @@ async def chat(
             click.secho("⚠️ Please enter a question to continue.", fg="yellow")
             continue
 
-        # 📡 Send the user question to Preacher and await a sacred reply
-        response = await call_agent_async(question, user_id, session_id, runner)
+        # 📡 Send the user question to Omar and await a sacred reply
+        response = await call_agent_async(question, user_id, session_id)
 
         # ✨ Display the response to the user
         click.secho(f"> {response}", fg="bright_cyan")
