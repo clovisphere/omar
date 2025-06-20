@@ -63,7 +63,7 @@ source .venv/bin/activate  # Activate the virtual environment
 make
 ```
 
-> 📲 Running the Telegram Bot Locally
+##### 📲 Running the Telegram Bot locally
 
 If you're running locally, you'll need to make your server publicly accessible so Telegram can send webhooks.
 
@@ -73,7 +73,7 @@ Install [ngrok](https://ngrok.com/download) if you haven't already, then run:
 ngrok http 8000
 ```
 
-Take note of the https forwarding URL, for example: forwarding `https://random-id.ngrok.io` -> `http://localhost:8000`
+Take note of the https **forwarding URL**, for example: forwarding `https://random-id.ngrok.io` -> `http://localhost:8000`
 
 Update your .env file accordingly: `BASE_URL=https://random-id.ngrok.io`
 
@@ -81,7 +81,7 @@ Update your .env file accordingly: `BASE_URL=https://random-id.ngrok.io`
 
 In the .env file, set your Telegram bot token: `TELEGRAM_TOKEN=your_telegram_bot_token_here`
 
-You can get a bot token from [@BotFather](https://t.me/BotFather) on Telegram].
+You can get a bot token from [@BotFather](https://t.me/BotFather) on Telegram.
 
 > Start the Telegram Bot
 
