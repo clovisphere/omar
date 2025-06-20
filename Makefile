@@ -1,9 +1,9 @@
-.PHONY: all clear hooks local server
+.PHONY: all clear docker hooks local server
 
 # The name of the service you're running
-SERVICE := omar
+SERVICE     := omar
 # The port used by the server (FastAPI)
-PORT    := 8000
+PORT        := 8000
 # Set the environment mode for the container (can be overridden with `make docker ENVIRONMENT=production`)
 ENVIRONMENT ?= development
 
