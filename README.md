@@ -1,13 +1,13 @@
-# 🕊️ Preacher
+![Ask Omar](./images/omar_banner.png)
 
-Preacher is your AI-powered spiritual companion. A serene guide who listens deeply and connects you to the most relevant wisdom through specialized agents.
+Omar is your AI-powered spiritual companion. A serene guide who listens deeply and connects you to the most relevant wisdom through specialized agents.
 Whether you seek biblical understanding, philosophical musings, or gentle moral reflection,
 Preacher channels the right voice for your soul's question.
 
-## ✨ What is Preacher?
+## ✨ Who is Omar?
 
-Preacher is a multi-agent AI assistant built using [Google ADK](https://google.github.io/adk-docs/).
-At its core is a "root" agent (Preacher) who delegates questions to domain-specific subagents:
+Omar is a multi-agent AI assistant built using [Google ADK](https://google.github.io/adk-docs/).
+At its core is a "root" agent (Omar) who delegates questions to domain-specific subagents:
 
 - `christian_agent`: for Christian scripture and theology
 - `muslim_agent`: for Islamic teachings and interpretations
@@ -18,7 +18,7 @@ Each subagent is designed with care, clarity, and empathy to ensure thoughtful, 
 
 ## 🧠 How It Works
 
-When a user submits a question, Preacher:
+When a user submits a question, Omar:
 
 1. Analyzes the intent and context
 2. Selects the most appropriate subagent
@@ -56,13 +56,13 @@ source .venv/bin/activate  # Activate the virtual environment
 > Run the Chat
 
 ```bash
-make local
+make
 ```
 
 #####  🛠️ Developer Commands
 
 ```bash
-make local   # Start the interactive CLI
+make         # Start the interactive CLI
 make hooks   # Run pre-commit hooks
 make clear   # Clean .pyc, __pycache__, etc.
 ```

@@ -1,16 +1,19 @@
 [project]
-name = "preacher"
+name = "Omar"
 version = "0.1.0"
-description = "Preacher is an AI-powered spiritual guide offering wisdom, reflection, and comfort across faiths and philosophies."
+description = "Omar is an AI-powered spiritual guide offering wisdom, reflection, and comfort across faiths and philosophies."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "art>=6.5",
     "click>=8.2.1",
+    "fastapi[standard]>=0.115.13",
     "google-adk>=1.4.1",
     "litellm>=1.72.6.post1",
     "pydantic-settings>=2.9.1",
     "python-dotenv>=1.1.0",
+    "python-telegram-bot>=22.1",
+    "structlog>=25.4.0",
 ]
 
 [tool.ruff]

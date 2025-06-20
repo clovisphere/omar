@@ -14,19 +14,38 @@ from app.config import settings
 # Ignore all warnings
 warnings.filterwarnings("ignore")
 
+# Create an in-memory session service to manage user sessions temporarily
+session_service = InMemorySessionService()
+# Generate a unique identifier for the user (simulating a new visitor every time)
+user_id = f"user_{uuid.uuid4()}"
+# Generate a unique identifier for this particular session (a unique chat instance)
+session_id = f"session_{uuid.uuid4()}"
+
+
+async def call_agent_async(
+    query: str, user_id: str, session_id: str, runner: Runner
+) -> str | None:
+    """Sends a query to Omar and retrieves the final response."""
+    content = types.Content(role="user", parts=[types.Part(text=query)])
+    async for event in runner.run_async(
+        user_id=user_id, session_id=session_id, new_message=content
+    ):
+        if (
+            event.is_final_response()
+            and event.content
+            and event.content.parts
+            and event.content.parts[0].text
+        ):
+            return event.content.parts[0].text
+
+    return "🙏 Sorry, I couldn't find a response to that right now."
+
 
 @click.command()
 def console() -> None:
-    """Entry point for Preacher CLI."""
+    """Entry point for the Omar CLI."""
     click.echo(tprint(f"{settings.PROJECT_NAME}", font="tarty7"))
     click.secho("🌿 Starting interactive chat...\n", fg="green")
-
-    # Create an in-memory session service to manage user sessions temporarily
-    session_service = InMemorySessionService()
-    # Generate a unique identifier for the user (simulating a new visitor every time)
-    user_id = f"user_{uuid.uuid4()}"
-    # Generate a unique identifier for this particular session (a unique chat instance)
-    session_id = f"session_{uuid.uuid4()}"
 
     # Run the asynchronous chat loop with the generated identifiers and session handler
     asyncio.run(
@@ -43,8 +62,8 @@ async def chat(
 ) -> None:
     """Handles the chat interaction loop with the user."""
     click.secho(
-        "\nHey, there 👋 I'm your spiritual companion. "
-        + "Ask me anything—that's on your heart or mind",
+        "\nPeace be upon you. I'm Omar, your spiritual companion. "
+        + "Whatever's on your heart or mind, I'm here. Ask away",
         fg="blue",
     )
     click.secho("Type 'quit' or 'q' to exit the chat.\n", fg="magenta")
@@ -82,25 +101,6 @@ async def chat(
 
         # ✨ Display the response to the user
         click.secho(f"> {response}", fg="bright_cyan")
-
-
-async def call_agent_async(
-    query: str, user_id: str, session_id: str, runner: Runner
-) -> str | None:
-    """Sends a query to the root agent and retrieves the final response."""
-    content = types.Content(role="user", parts=[types.Part(text=query)])
-    async for event in runner.run_async(
-        user_id=user_id, session_id=session_id, new_message=content
-    ):
-        if (
-            event.is_final_response()
-            and event.content
-            and event.content.parts
-            and event.content.parts[0].text
-        ):
-            return event.content.parts[0].text
-
-    return "🙏 Sorry, I couldn't find a response to that right now."
 
 
 # Run the CLI
