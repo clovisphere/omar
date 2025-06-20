@@ -3,10 +3,6 @@ ARG PYTHON_VERSION=3.13
 # Use a Python image with uv pre-installed
 FROM ghcr.io/astral-sh/uv:python${PYTHON_VERSION}-alpine
 
-# Install PostgreSQL development libraries
-# RUN apk update && \
-#     apk add --no-cache --virtual build-deps gcc python3-dev musl-dev postgresql-dev
-
 # Install the project into /code
 WORKDIR /code
 
@@ -38,4 +34,4 @@ EXPOSE 8000
 ENTRYPOINT []
 
 # Use entrypoint.sh to run the app
-CMD ["/bin/sh", "/code/entrypoint.sh"]
+CMD ["/code/entrypoint.sh"]
