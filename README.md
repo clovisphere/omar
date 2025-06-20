@@ -37,13 +37,16 @@ The user sees only one trusted voice, even though a community of agents is worki
 
 ### Setup
 
+We need to set up the environment variables, so make a copy of [.env.example](./.env.example)
+and rename it to `.env`. Fill in the necessary values.
+
 #### Development 👷🏽
 
 > Clone the repository and enter the project folder
 
 ```bash
-git clone https://github.com/clovisphere/preacher.git
-cd preacher
+git clone https://github.com/clovisphere/omar.git
+cd omar
 ```
 
 > Install project dependencies:
@@ -59,10 +62,45 @@ source .venv/bin/activate  # Activate the virtual environment
 make
 ```
 
+> 📲 Running the Telegram Bot Locally
+
+If you're running locally, you'll need to make your server publicly accessible so Telegram can send webhooks.
+
+Install [ngrok](https://ngrok.com/download) if you haven't already, then run:
+
+```bash
+ngrok http 8000
+```
+
+Take note of the https forwarding URL, for example:
+
+> Forwarding `https://random-id.ngrok.io` -> `http://localhost:8000`
+
+Update your .env file accordingly:
+
+`BASE_URL=https://random-id.ngrok.io`
+
+> Set Your Telegram Token
+
+In the .env file, set your Telegram bot token:
+
+`TELEGRAM_TOKEN=your_telegram_bot_token_here`
+
+You can get a bot token from [@BotFather](https://t.me/BotFather) on Telegram].
+
+> Start the Telegram Bot
+
+```bash
+make server
+```
+
+Once the server is running and accessible, the Telegram webhook will be triggered by messages sent to your bot.
+
 #####  🛠️ Developer Commands
 
 ```bash
 make         # Start the interactive CLI
+make server  # Run the Telegram Bot server
 make hooks   # Run pre-commit hooks
 make clear   # Clean .pyc, __pycache__, etc.
 ```
