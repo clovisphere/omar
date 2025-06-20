@@ -11,8 +11,8 @@ start_app() {
 
 case "${ENVIRONMENT:-}" in
   development)
-    start_app "Starting in development mode with hot reload..." \
-      --host 0.0.0.0 --port 8000 --reload
+    start_app "Starting in development mode..." \
+      --host 0.0.0.0 --port 8000
     ;;
 
   production)
