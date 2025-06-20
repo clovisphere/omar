@@ -33,7 +33,8 @@ The user sees only one trusted voice, even though a community of agents is worki
 
 - [Python](https://www.python.org/downloads/) 3.10+
 - [uv](https://github.com/astral-sh/uv) (optional, for dependency management)
-- [Openai API key](https://platform.openai.com/api-keys)
+- [OpenAI API key](https://platform.openai.com/api-keys)
+- [Gemini AI key](https://ai.google.dev/gemini-api/docs/api-key)
 
 ### Setup
 
@@ -72,19 +73,13 @@ Install [ngrok](https://ngrok.com/download) if you haven't already, then run:
 ngrok http 8000
 ```
 
-Take note of the https forwarding URL, for example:
+Take note of the https forwarding URL, for example: forwarding `https://random-id.ngrok.io` -> `http://localhost:8000`
 
-> Forwarding `https://random-id.ngrok.io` -> `http://localhost:8000`
-
-Update your .env file accordingly:
-
-`BASE_URL=https://random-id.ngrok.io`
+Update your .env file accordingly: `BASE_URL=https://random-id.ngrok.io`
 
 > Set Your Telegram Token
 
-In the .env file, set your Telegram bot token:
-
-`TELEGRAM_TOKEN=your_telegram_bot_token_here`
+In the .env file, set your Telegram bot token: `TELEGRAM_TOKEN=your_telegram_bot_token_here`
 
 You can get a bot token from [@BotFather](https://t.me/BotFather) on Telegram].
 
