@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -euo pipefail
 
 echo "Current ENVIRONMENT: ${ENVIRONMENT:-undefined}"
