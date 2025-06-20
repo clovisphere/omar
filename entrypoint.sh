@@ -4,9 +4,6 @@ set -euo pipefail
 echo "Current ENVIRONMENT: ${ENVIRONMENT:-undefined}"
 
 start_app() {
-  echo "Running migrations..."
-  alembic upgrade head
-
   echo "$1" # Keep this line for logging the startup mode
   shift # Remove the first argument so uvicorn doesn't see it
   exec uvicorn app.main:app "$@" # Pass all remaining arguments to uvicorn
