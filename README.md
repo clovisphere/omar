@@ -29,7 +29,7 @@ The user sees only one trusted voice, even though a community of agents is worki
 
 ## TODO 📝
 
-- [ ] Enhance agent responses by leveraging memory and contextual awareness more effectively.
+- [ ] Improve response quality by leveraging memory and contextual awareness more effectively.
 - [ ] Enhance logging for better debugging and system insights.
 - [ ] Set up automated testing, building, and deployment workflows.
 - [ ] Add both `unit` and `integration` tests to ensure system robustness.
