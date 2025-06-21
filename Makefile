@@ -1,4 +1,4 @@
-.PHONY: all clear docker hooks local server
+.PHONY: all clear docker hooks local start
 
 # The name of the service you're running
 SERVICE     := omar
@@ -16,7 +16,7 @@ local:
 	@uv run cli.py
 
 # 🌐 Run the FastAPI server
-server:
+start:
 	@echo "[🤖] Starting $(SERVICE)'s server... (local-development)"
 	@fastapi dev app/main.py
 
@@ -26,9 +26,7 @@ docker:
 	@docker build -t $(SERVICE)-image .
 	@docker run --rm -it \
 		-p $(PORT):$(PORT) \
-		-v $(CURDIR):/code \
 		-e ENVIRONMENT=$(ENVIRONMENT) \
-		--env PYTHON_VERSION=3.11 \
 		$(SERVICE)-image
 
 # ✅ Run all pre-commit hooks

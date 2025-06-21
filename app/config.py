@@ -35,7 +35,7 @@ class Settings(BaseSettings):
 
     GOOGLE_GENAI_USE_VERTEXAI: bool = bool(os.getenv("GOOGLE_GENAI_USE_VERTEXAI", False))
     # Gemini model to use
-    GOOGLE_GENAI_MODEL: str = os.getenv("GOOGLE_GENAI_MODEL", "gemini-2.5-pro")
+    GOOGLE_GENAI_MODEL: str = os.getenv("GOOGLE_GENAI_MODEL", "gemini-2.0-flash")
     # API key for accessing Gemini
     GOOGLE_API_KEY: str = os.getenv("GOOGLE_API_KEY", "")
 

@@ -1,27 +1,32 @@
 #!/bin/sh
 set -euo pipefail
 
-echo "Current ENVIRONMENT: ${ENVIRONMENT:-undefined}"
+echo "[🌍] Environment: ${ENVIRONMENT:-undefined}"
 
 start_app() {
-  echo "$1" # Keep this line for logging the startup mode
-  shift # Remove the first argument so uvicorn doesn't see it
-  exec uvicorn app.main:app "$@" # Pass all remaining arguments to uvicorn
+  local mode_message="$1"
+  shift  # Remove the mode message from args
+
+  echo "[🚀] $mode_message"
+  echo "[⚙️] Launching FastAPI with: uv run fastapi run app/main.py $*"
+
+  exec uv run fastapi run app/main.py "$@"
 }
 
 case "${ENVIRONMENT:-}" in
   development)
-    start_app "Starting in development mode..." \
-      --host 0.0.0.0 --port 8000
+    start_app "Booting up in development mode..." \
+      --workers 2
     ;;
 
   production)
-    start_app "Starting in production mode with multiple workers..." \
-      --host 0.0.0.0 --port 8000 --timeout-keep-alive 300 --workers 2
+    start_app "Liftoff! Entering production orbit..." \
+      --workers 4 --proxy-headers
     ;;
 
   *)
-    echo "Error: ENVIRONMENT must be set to either 'development' or 'production'"
+    echo "[❌] Invalid ENVIRONMENT: '${ENVIRONMENT:-}'"
+    echo "[ℹ️] Please set ENVIRONMENT to either 'development' or 'production'"
     exit 1
     ;;
 esac

@@ -27,6 +27,18 @@ When a user submits a question, Omar:
 
 The user sees only one trusted voice, even though a community of agents is working behind the scenes.
 
+## TODO 📝
+
+- [ ] Enhance agent responses by leveraging memory and contextual awareness more effectively.
+- [ ] Enhance logging for better debugging and system insights.
+- [ ] Set up automated testing, building, and deployment workflows.
+- [ ] Add both `unit` and `integration` tests to ensure system robustness.
+- [ ] Streamline the deployment process for seamless production delivery on [Render](https://render.com/)
+
+Nice to have 😊:
+
+- [ ] Implement metrics collection, dashboards, and notifications for critical issues.
+
 ## 💻 Getting Started
 
 ### Prerequisites
@@ -86,7 +98,7 @@ You can get a bot token from [@BotFather](https://t.me/BotFather) on Telegram.
 > Start the Telegram Bot
 
 ```bash
-make server
+make start
 ```
 
 Once the server is running and accessible, the Telegram webhook will be triggered by messages sent to your bot.
@@ -95,7 +107,8 @@ Once the server is running and accessible, the Telegram webhook will be triggere
 
 ```bash
 make         # Start the interactive CLI
-make server  # Run the Telegram Bot server
+make start   # Run the FastAPI server
+make docker  # Run the Dockerized version of the app
 make hooks   # Run pre-commit hooks
 make clear   # Clean .pyc, __pycache__, etc.
 ```

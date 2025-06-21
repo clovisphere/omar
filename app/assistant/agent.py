@@ -1,5 +1,4 @@
 from google.adk.agents import Agent
-from google.adk.models.lite_llm import LiteLlm
 
 from app.assistant import prompt
 from app.assistant.sub_agents.christian.agent import christian_agent
@@ -10,7 +9,7 @@ from app.config import settings
 
 omar = Agent(
     name="omar",
-    model=LiteLlm(model=settings.OPENAI_MODEL),
+    model=settings.GOOGLE_GENAI_MODEL,
     description="""
     A spiritual guide that uses specialized sub-agents to provide meaningful answers.
     """,

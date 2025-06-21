@@ -16,13 +16,13 @@ ENV UV_LINK_MODE=copy
 RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync --frozen --no-install-project --no-dev
+    uv sync --locked --no-install-project --no-editable
 
 # Then, add the rest of the project source code and install it
 # Installing separately from its dependencies allows optimal layer caching
 ADD . /code
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --frozen --no-dev
+    uv sync --frozen --no-editable
 
 # Place executables in the environment at the front of the path
 ENV PATH="/code/.venv/bin:$PATH"
@@ -34,4 +34,4 @@ EXPOSE 8000
 ENTRYPOINT []
 
 # Use entrypoint.sh to run the app
-CMD ["/code/entrypoint.sh"]
+CMD ["/bin/sh", "/code/entrypoint.sh"]
