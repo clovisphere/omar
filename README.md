@@ -50,7 +50,7 @@ Nice to have 😊:
 
 ### Setup
 
-We need to set up the environment variables, so make a copy of [.env.example](./.env.example)
+We need to set up the environment variables, so make a copy of [.env.template](./.env.template)
 and rename it to `.env`. Fill in the necessary values.
 
 #### Development 👷🏽
